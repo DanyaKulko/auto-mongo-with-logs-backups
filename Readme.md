@@ -60,7 +60,7 @@ The `projects_example.json` file should look like this:
 
 ### Quick start
 
-1. `git clone git@github.com:DanyaKulko/auto-mongo-with-logs-backups.git`
+1. `git clone https://github.com/DanyaKulko/auto-mongo-with-logs-backups.git`
 2. `npm install`
 3. Rename the `.env.example` to `.env` and fill it with your data
 4. Rename the data/`projects_example.json` to data/`projects.json` and fill it with your data
