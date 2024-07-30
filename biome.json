@@ -1,0 +1,40 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+    "files": {
+        "ignore": [
+            "dist/**",
+            "node_modules/**",
+            "logs/**",
+            "public/**",
+            ".idea/**",
+            ".vscode/**",
+            ".DS_Store"
+        ],
+        "include": [
+            "src/**",
+            "data/**",
+            "test/**",
+            "package.json",
+            "tsconfig.json",
+            "biome.json"
+        ]
+    },
+    "organizeImports": {
+        "enabled": false
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "suspicious": {
+                "noExplicitAny": "off"
+            }
+        }
+    },
+    "formatter": {
+        "enabled": true,
+        "indentWidth": 4,
+        "indentStyle": "space",
+        "lineEnding": "crlf"
+    }
+}

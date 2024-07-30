@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "es2022",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": ["node"],
+        "baseUrl": ".",
+        "strict": true,
+        "skipLibCheck": true,
+        "rootDir": "./src",
+        "outDir": "./dist"
+    },
+    "include": [
+        "src/**/*.ts",
+        "node_modules/@types/node/globals.d.ts"
+    ],
+    "exclude": ["node_modules", "dist"]
+}

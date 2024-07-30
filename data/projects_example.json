@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Project Example",
+        "hashtag": "projectExample",
+        "mongo": {
+            "enabled": true,
+            "url": "mongodb://username:password@127.0.0.1:27017/project",
+            "removeAfterExport": false
+        },
+        "logs": {
+            "enabled": true,
+            "path": "/home/projects/projectExample/logs",
+            "lastModifiedFilesCount": 2,
+            "removeAfterExport": false
+        }
+    }
+]

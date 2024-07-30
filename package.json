@@ -1,0 +1,37 @@
+{
+    "name": "auto-mongo-with-logs-backups",
+    "author": "DanyaKulko",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:DanyaKulko/auto-mongo-with-logs-backups.git"
+    },
+    "license": "ISC",
+    "scripts": {
+        "clean": "rimraf dist",
+        "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
+        "build": "npm run clean && tsc",
+        "start": "cross-env NODE_ENV=production node dist/index.js",
+        "lint": "biome check --no-errors-on-unmatched",
+        "lint:fix": "biome check --write --no-errors-on-unmatched"
+    },
+    "dependencies": {
+        "axios": "^1.7.2",
+        "cross-env": "^7.0.3",
+        "dotenv": "^16.4.5",
+        "node-cron": "^3.0.3",
+        "node-gzip": "^1.1.2",
+        "winston": "^3.13.1",
+        "winston-daily-rotate-file": "^5.0.0"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^1.8.3",
+        "@types/node": "^20.14.11",
+        "@types/node-cron": "^3.0.11",
+        "rimraf": "^6.0.1",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.5.3"
+    }
+}
