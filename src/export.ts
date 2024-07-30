@@ -57,7 +57,7 @@ export const exportData = async (projects: Project[]) => {
                 "logs",
                 logsFileName,
             );
-            const inputLogsDir = path.join(...project.logs.path.split("/"));
+            const inputLogsDir = project.logs.path;
             projectLogger.info(
                 `Exporting logs from ${inputLogsDir} to ${fullOutputLogsPath}`,
             );
