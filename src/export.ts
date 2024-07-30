@@ -27,7 +27,7 @@ export const exportData = async (projects: Project[]) => {
                 );
 
                 await awaitShell(`tar -czf ${fullDumpPath}.tar.gz ${fullDumpPath}`);
-                await rm(fullDumpPath);
+                await rm(fullDumpPath, { recursive: true, force: true });
 
                 await sendTelegramFile(
                     config.TELEGRAM_CHAT_ID,
