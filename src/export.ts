@@ -4,10 +4,7 @@ import path from "node:path";
 import { rm } from "node:fs/promises";
 import { sendTelegramFile } from "./utils/sendTelegramMessage";
 import { config } from "./config";
-import { getRootPath } from "./utils/getRootPath";
 import type { Project } from "./utils/readExportData";
-
-const dumpsDir = path.join(getRootPath(), "dumps");
 
 export const exportData = async (projects: Project[]) => {
     for (const project of projects) {
@@ -18,21 +15,23 @@ export const exportData = async (projects: Project[]) => {
         );
 
         if (project.mongo?.enabled) {
-            const mongoDumpFileName = `mongo-${project.title.replaceAll(" ", "_")}-${new Date().toISOString()}.gz`;
+            const mongoDumpFileName = `mongo-${project.title.replaceAll(" ", "_")}-${new Date().toISOString()}`;
             const fullDumpPath = path.join(
-                dumpsDir,
-                "mongo",
+                config.MONGO_DUMP_DIR,
                 mongoDumpFileName,
             );
             projectLogger.info(`Exporting mongo data to ${fullDumpPath}`);
             try {
                 await awaitShell(
-                    `mongodump --uri=${project.mongo.url} --archive=${fullDumpPath} --gzip`,
+                    `mongodump --uri=${project.mongo.url} --out=${fullDumpPath}`,
                 );
+
+                await awaitShell(`tar -czf ${fullDumpPath}.tar.gz ${fullDumpPath}`);
+                await rm(fullDumpPath);
 
                 await sendTelegramFile(
                     config.TELEGRAM_CHAT_ID,
-                    fullDumpPath,
+                    `${fullDumpPath}.tar.gz`,
                     project.hashtag,
                     "Mongo",
                 );
@@ -53,8 +52,7 @@ export const exportData = async (projects: Project[]) => {
         if (project.logs?.enabled) {
             const logsFileName = `logs-${project.title.replaceAll(" ", "_")}-${new Date().toISOString()}.tar.gz`;
             const fullOutputLogsPath = path.join(
-                dumpsDir,
-                "logs",
+                config.LOGS_DUMP_DIR,
                 logsFileName,
             );
             const inputLogsDir = project.logs.path;
