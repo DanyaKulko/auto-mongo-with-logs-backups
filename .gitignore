@@ -4,5 +4,7 @@
 /node_modules
 /dumps
 /logs
+/dist
+/data/projects.json
 
 .env
