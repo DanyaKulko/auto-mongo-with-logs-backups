@@ -6,6 +6,7 @@ import logger from "./logger";
 
 export const sendTelegramFile = async (
     chatId: number,
+    message_thread_id: number | undefined,
     filePath: string,
     hashtag: string,
     type: "Mongo" | "Logs",
@@ -13,6 +14,9 @@ export const sendTelegramFile = async (
     try {
         const formData = new FormData();
         formData.append("chat_id", chatId);
+        if(message_thread_id) {
+            formData.append("message_thread_id", message_thread_id);
+        }
         formData.append("document", fs.createReadStream(filePath));
         formData.append(
             "caption",

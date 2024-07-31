@@ -27,6 +27,8 @@ The `projects_example.json` file should look like this:
     {
       "title": "Project Example",
       "hashtag": "projectExample",
+      "chat_id": -1000000,
+      "message_thread_id": 0,
       "mongo": {
         "enabled": true,
         "url": "mongodb://username:password@127.0.0.1:27017/project",
@@ -42,6 +44,8 @@ The `projects_example.json` file should look like this:
     {
       "title": "Project Example2",
       "hashtag": "projectExample2",
+      "chat_id": -2000000,
+      "message_thread_id": 2,
       "mongo": {
         "enabled": true,
         "url": "mongodb://username:password@127.0.0.1:27017/project2",

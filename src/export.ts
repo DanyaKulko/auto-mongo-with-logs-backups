@@ -26,11 +26,12 @@ export const exportData = async (projects: Project[]) => {
                     `mongodump --uri=${project.mongo.url} --out=${fullDumpPath}`,
                 );
 
-                await awaitShell(`tar -czf ${fullDumpPath}.tar.gz ${fullDumpPath}`);
+                await awaitShell(`tar -czf ${fullDumpPath}.tar.gz -C $(dirname ${fullDumpPath}) $(basename ${fullDumpPath})`);
                 await rm(fullDumpPath, { recursive: true, force: true });
 
                 await sendTelegramFile(
-                    config.TELEGRAM_CHAT_ID,
+                    project.chat_id,
+                    project.message_thread_id,
                     `${fullDumpPath}.tar.gz`,
                     project.hashtag,
                     "Mongo",
@@ -84,7 +85,8 @@ export const exportData = async (projects: Project[]) => {
                 await awaitShell(tarCommand);
 
                 await sendTelegramFile(
-                    config.TELEGRAM_CHAT_ID,
+                    project.chat_id,
+                    project.message_thread_id,
                     fullOutputLogsPath,
                     project.hashtag,
                     "Logs",

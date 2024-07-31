@@ -6,6 +6,8 @@ import { getRootPath } from "./getRootPath";
 export interface Project {
     title: string;
     hashtag: string;
+    chat_id: number;
+    message_thread_id?: number;
     mongo?: {
         enabled: boolean;
         url: string;
