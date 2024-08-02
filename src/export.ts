@@ -9,14 +9,14 @@ import type { Project } from "./utils/readExportData";
 export const exportData = async (project: Project) => {
     const projectLogger = logger.child({ label: project.title });
 
-    projectLogger.info(
-        `Exporting started, mongo export ${project.mongo?.enabled ? "enabled" : "disabled"}, logs export ${project.logs?.enabled ? "enabled" : "disabled"}`,
-    );
+    projectLogger.info(`Export for project "${project.title}" started`);
 
     if (project.mongo?.enabled) {
-        const mongoDumpFileName = `mongo-${project.title.replaceAll(" ", "_")}-${new Date().toISOString()}`;
+        const mongoDumpFileName = new Date().toISOString();
         const fullDumpPath = path.join(
-            config.MONGO_DUMP_DIR,
+            config.DUMPS_DIR,
+            project.hashtag,
+            "mongo",
             mongoDumpFileName,
         );
         projectLogger.info(`Exporting mongo data to ${fullDumpPath}`);
@@ -52,9 +52,11 @@ export const exportData = async (project: Project) => {
     }
 
     if (project.logs?.enabled) {
-        const logsFileName = `logs-${project.title.replaceAll(" ", "_")}-${new Date().toISOString()}.tar.gz`;
+        const logsFileName = new Date().toISOString();
         const fullOutputLogsPath = path.join(
-            config.LOGS_DUMP_DIR,
+            config.DUMPS_DIR,
+            project.hashtag,
+            "logs",
             logsFileName,
         );
         const inputLogsDir = project.logs.path;
@@ -68,21 +70,18 @@ export const exportData = async (project: Project) => {
             const filesToArchive = res
                 .split("\n")
                 .filter((file) => file.trim() !== "")
+                .map(
+                    (file) =>
+                        `--transform 's,^./,,' ${path.relative(inputLogsDir, file)}`,
+                )
                 .join(" ");
 
-            if (filesToArchive.length === 0) {
+            if (!filesToArchive) {
                 projectLogger.info("No files to archive.");
                 return;
             }
 
-            const tarCommand = `tar -czf ${fullOutputLogsPath} -C ${inputLogsDir} ${filesToArchive
-                .split(" ")
-                .map(
-                    (file) =>
-                        `--transform 's,^./,,S' ${path.relative(inputLogsDir, file)}`,
-                )
-                .join(" ")}`;
-
+            const tarCommand = `tar -czf ${fullOutputLogsPath} -C ${inputLogsDir} ${filesToArchive}`;
             await awaitShell(tarCommand);
 
             await sendTelegramFile(
@@ -107,5 +106,5 @@ export const exportData = async (project: Project) => {
         }
     }
 
-    projectLogger.info("Exporting finished");
+    projectLogger.info(`Export for project "${project.title}" finished`);
 };

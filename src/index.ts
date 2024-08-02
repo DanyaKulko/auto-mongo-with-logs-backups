@@ -9,14 +9,17 @@ import { createNecessaryFolders } from "./utils/createNecessaryFolders";
 
     try {
         const projects = await readExportData();
-        await createNecessaryFolders();
+        await createNecessaryFolders(projects);
 
         for (const project of projects) {
+            mainLogger.info(
+                `Cron set for project "${project.title}" (${project.cron})`,
+            );
+
             cron.schedule(project.cron, async () => {
-                mainLogger.info(
-                    `Cron set for project ${project.title} (${project.cron})`,
-                );
                 await exportData(project);
+            }, {
+                timezone: "Europe/Kiev",
             });
         }
     } catch (error) {
