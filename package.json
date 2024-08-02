@@ -16,7 +16,7 @@
         "start": "cross-env NODE_ENV=production node dist/index.js",
         "lint": "biome check --no-errors-on-unmatched",
         "lint:fix": "biome check --write --no-errors-on-unmatched",
-        "prepare": "husky"
+        "prepare": "husky || true"
     },
     "lint-staged": {
         "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json}": [
@@ -35,6 +35,7 @@
         "@biomejs/biome": "^1.8.3",
         "@types/node": "^22.0.0",
         "@types/node-cron": "^3.0.11",
+        "husky": "^9.1.4",
         "lint-staged": "^15.2.7",
         "rimraf": "^6.0.1",
         "ts-node-dev": "^2.0.0",
