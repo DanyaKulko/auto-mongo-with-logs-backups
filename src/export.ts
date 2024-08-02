@@ -81,7 +81,7 @@ export const exportData = async (project: Project) => {
                 return;
             }
 
-            const tarCommand = `tar -czf ${fullOutputLogsPath} -C ${inputLogsDir} ${filesToArchive}`;
+            const tarCommand = `tar -czf ${fullOutputLogsPath}.tar.gz -C ${inputLogsDir} ${filesToArchive}`;
             await awaitShell(tarCommand);
 
             await sendTelegramFile(
