@@ -12,7 +12,8 @@ It creates an archive with MongoDB data and logs and sends it to the Telegram ch
 
 It can be easily modified to send backups to other services like AWS S3, Google Cloud Storage, etc.
 
-Also, if your archived backups are more than 50MB, consider using other services since Telegram has a 50MB limit for files.
+Also, if your archived backups are more than 50MB, consider using other services since Telegram has a 50MB limit for
+files.
 
 All backups are stored in the `dumps` directory in the root of the project.
 
@@ -98,10 +99,10 @@ The `projects_example.json` file should look like this:
 
 ### Annotation:
 
-- `title` - project title(used only for logs)
+- `title` - project title (used only for logs)
 - `hashtag` - project hashtag(used for creating a folder with backups and hashtag for telegram messages)
 - `chat_id` - telegram chat id
-- `message_thread_id` - telegram message thread id(optional)
+- `message_thread_id` - telegram message thread id (optional)
 - `cron` - cron configuration
     - `schedule` - cron schedule
     - `timezone` - cron timezone
@@ -110,10 +111,10 @@ The `projects_example.json` file should look like this:
     - `url` - mongo connection string
     - `removeAfterExport` - remove backup archive after exporting
 - `logs` - logs backup configuration
-- `enabled` - enable logs backup
-- `path` - path to logs folder
-- `lastModifiedFilesCount` - count of last modified files to back up
-- `removeAfterExport` - remove backup archive after exporting
+    - `enabled` - enable logs backup
+    - `path` - path to logs folder
+    - `lastModifiedFilesCount` - count of last modified files to back up
+    - `removeAfterExport` - remove backup archive after exporting
 
 ## Quick start
 
@@ -124,5 +125,5 @@ The `projects_example.json` file should look like this:
 5. `npm run build`
 6. `npm start`
 
-It also can be run using pm2: `pm2 start ecosystem.config.js`
-and`pm2 start ecosystem.config.js --env production` for production mode.
+It also can be run using pm2: `pm2 start ecosystem.config.js` and `pm2 start ecosystem.config.js --env production` for
+production mode.
