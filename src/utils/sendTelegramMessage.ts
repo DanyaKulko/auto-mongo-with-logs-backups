@@ -14,14 +14,11 @@ export const sendTelegramFile = async (
     try {
         const formData = new FormData();
         formData.append("chat_id", chatId);
-        if(message_thread_id) {
+        if (message_thread_id) {
             formData.append("message_thread_id", message_thread_id);
         }
         formData.append("document", fs.createReadStream(filePath));
-        formData.append(
-            "caption",
-            `#${type} backup for #${hashtag} project`,
-        );
+        formData.append("caption", `#${type} backup for #${hashtag} project`);
 
         await axios.post(
             `https://api.telegram.org/bot${config.TELEGRAM_BOT_TOKEN}/sendDocument`,

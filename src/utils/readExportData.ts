@@ -19,7 +19,7 @@ export interface Project {
         path: string;
         lastModifiedFilesCount: number;
         removeAfterExport?: boolean;
-    }
+    };
 }
 
 export const readExportData = async (): Promise<Project[]> => {

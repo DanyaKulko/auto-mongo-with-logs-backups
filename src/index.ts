@@ -16,11 +16,15 @@ import { createNecessaryFolders } from "./utils/createNecessaryFolders";
                 `Cron set for project "${project.title}" (${project.cron})`,
             );
 
-            cron.schedule(project.cron, async () => {
-                await exportData(project);
-            }, {
-                timezone: "Europe/Kiev",
-            });
+            cron.schedule(
+                project.cron,
+                async () => {
+                    await exportData(project);
+                },
+                {
+                    timezone: "Europe/Kiev",
+                },
+            );
         }
     } catch (error) {
         if (error instanceof Error) {

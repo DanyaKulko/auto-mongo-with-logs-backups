@@ -2,7 +2,7 @@ import { access, mkdir } from "node:fs/promises";
 import { F_OK } from "node:constants";
 import { config } from "../config";
 import logger from "./logger";
-import type {Project} from "./readExportData";
+import type { Project } from "./readExportData";
 import path from "node:path";
 
 export const createNecessaryFolders = async (projects: Project[]) => {
@@ -27,10 +27,14 @@ export const createNecessaryFolders = async (projects: Project[]) => {
 
     for (const project of projects) {
         if (project.logs?.enabled) {
-            pathsToCreate.add(path.join(config.DUMPS_DIR, project.hashtag, "logs"));
+            pathsToCreate.add(
+                path.join(config.DUMPS_DIR, project.hashtag, "logs"),
+            );
         }
         if (project.mongo?.enabled) {
-            pathsToCreate.add(path.join(config.DUMPS_DIR, project.hashtag, "mongo"));
+            pathsToCreate.add(
+                path.join(config.DUMPS_DIR, project.hashtag, "mongo"),
+            );
         }
     }
 

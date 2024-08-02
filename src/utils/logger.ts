@@ -31,9 +31,9 @@ const consoleFormat = format.combine(
         level: info.level.toUpperCase(),
         label: info.label ? ` -> ${info.label.toUpperCase()}` : "",
     }))(),
-    format.colorize({all: true}),
+    format.colorize({ all: true }),
     format.printf(
-        ({level, message, timestamp, label}) =>
+        ({ level, message, timestamp, label }) =>
             `${timestamp} | [ ${level}${label} ]: ${message}`,
     ),
 );
@@ -46,7 +46,7 @@ const fileFormat = format.combine(
         level: info.level.toUpperCase(),
         label: info.label ? ` -> ${info.label.toUpperCase()}` : "",
     }))(),
-    format.printf(({level, message, timestamp, label}) => {
+    format.printf(({ level, message, timestamp, label }) => {
         const outputMessage =
             typeof message === "object" ? JSON.stringify(message) : message;
         return `${timestamp} | [ ${level}${label} ]: ${outputMessage}`;
@@ -77,7 +77,7 @@ const logger: Logger = createLogger({
 });
 
 if (process.env.NODE_ENV !== "production") {
-    logger.add(new transports.Console({format: consoleFormat}));
+    logger.add(new transports.Console({ format: consoleFormat }));
 }
 
 export default logger;
