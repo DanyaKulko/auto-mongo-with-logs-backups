@@ -8,6 +8,7 @@ export interface Project {
     hashtag: string;
     chat_id: number;
     message_thread_id?: number;
+    cron: string;
     mongo?: {
         enabled: boolean;
         url: string;

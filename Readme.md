@@ -1,11 +1,13 @@
 ## Auto Mongo and Logs Backup
 
-### Small script to back up mongo databases and logs using cron with sending dumps to Telegram. 
+### Small utility to back up mongo databases and logs using cron with sending dumps to Telegram. 
 
  - Mongo backup is using [mongodump](https://www.mongodb.com/docs/database-tools/mongodump/) utility which is included in MongoDB Database Tools.
  - Logs backup is using [tar](https://www.gnu.org/software/tar/) utility.
 
 All backups are stored in the `dumps` directory in the root of the project.
+Each project has its own cron schedule for exporting data.
+
 
 ### Configuration
 
@@ -13,10 +15,9 @@ The script is using the `.env` file to get the configuration. The `.env` file sh
 
 ```env
 TELEGRAM_BOT_TOKEN=...
-TELEGRAM_CHAT_ID=...
 
-PROJECTS_DATA_FILE_NAME=projects_example.json# File name with data (in data folder)
-EXPORT_CRON_SCHEDULE='0 0 * * *'# Cron schedule for exporting data
+# File name with projects data (in data folder)
+PROJECTS_DATA_FILE_NAME=projects_example.json
 ```
 
 The `projects_example.json` file should look like this:
@@ -29,6 +30,7 @@ The `projects_example.json` file should look like this:
       "hashtag": "projectExample",
       "chat_id": -1000000,
       "message_thread_id": 0,
+      "cron": "0 0 * * *",
       "mongo": {
         "enabled": true,
         "url": "mongodb://username:password@127.0.0.1:27017/project",
@@ -38,14 +40,14 @@ The `projects_example.json` file should look like this:
         "enabled": true,
         "path": "/home/projects/projectExample/logs",
         "lastModifiedFilesCount": 2,
-        "removeAfterExport": false
+        "removeAfterExport": true
       }
     },
     {
       "title": "Project Example2",
       "hashtag": "projectExample2",
       "chat_id": -2000000,
-      "message_thread_id": 2,
+      "cron": "0 0 0 * *",
       "mongo": {
         "enabled": true,
         "url": "mongodb://username:password@127.0.0.1:27017/project2",
@@ -55,7 +57,7 @@ The `projects_example.json` file should look like this:
         "enabled": true,
         "path": "/home/projects/projectExample2/logs",
         "lastModifiedFilesCount": 2,
-        "removeAfterExport": false
+        "removeAfterExport": true
       }
     }
   ]
@@ -71,4 +73,4 @@ The `projects_example.json` file should look like this:
 5. `npm run build`
 6. `npm start`
 
-It also can be run using pm2: `pm2 startOrRestart ecosystem.config.js --env production`
+It also can be run using pm2: `pm2 startOrRestart ecosystem.config.js` and`pm2 startOrRestart ecosystem.config.js --env production` for production mode.
