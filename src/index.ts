@@ -17,12 +17,12 @@ import { createNecessaryFolders } from "./utils/createNecessaryFolders";
             );
 
             cron.schedule(
-                project.cron,
+                project.cron.schedule,
                 async () => {
                     await exportData(project);
                 },
                 {
-                    timezone: "Europe/Kiev",
+                    timezone: project.cron.timezone,
                 },
             );
         }

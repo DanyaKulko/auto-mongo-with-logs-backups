@@ -4,7 +4,10 @@
         "hashtag": "projectExample",
         "chat_id": -1000000,
         "message_thread_id": 0,
-        "cron": "0 0 * * *",
+        "cron": {
+            "time": "0 0 * * *",
+            "timezone": "Europe/Kiev"
+        },
         "mongo": {
             "enabled": true,
             "url": "mongodb://username:password@127.0.0.1:27017/project",

@@ -56,7 +56,10 @@ The `projects_example.json` file should look like this:
       "hashtag": "projectExample",
       "chat_id": -1000000,
       "message_thread_id": 0,
-      "cron": "0 0 * * *",
+      "cron": {
+        "schedule": "0 0 0 * *",
+        "timezone": "Europe/Kiev"
+      },
       "mongo": {
         "enabled": true,
         "url": "mongodb://username:password@127.0.0.1:27017/project",
@@ -73,7 +76,10 @@ The `projects_example.json` file should look like this:
       "title": "Project Example2",
       "hashtag": "projectExample2",
       "chat_id": -2000000,
-      "cron": "0 0 0 * *",
+      "cron": {
+        "schedule": "0 0 0 * *",
+        "timezone": "Europe/Berlin"
+      },
       "mongo": {
         "enabled": true,
         "url": "mongodb://username:password@127.0.0.1:27017/project2",
@@ -96,7 +102,9 @@ The `projects_example.json` file should look like this:
 - `hashtag` - project hashtag(used for creating a folder with backups and hashtag for telegram messages)
 - `chat_id` - telegram chat id
 - `message_thread_id` - telegram message thread id(optional)
-- `cron` - cron schedule for exporting data
+- `cron` - cron configuration
+    - `schedule` - cron schedule
+    - `timezone` - cron timezone
 - `mongo` - mongo backup configuration
     - `enabled` - enable mongo backup
     - `url` - mongo connection string

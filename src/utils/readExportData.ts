@@ -8,7 +8,10 @@ export interface Project {
     hashtag: string;
     chat_id: number;
     message_thread_id?: number;
-    cron: string;
+    cron: {
+        schedule: string;
+        timezone?: string;
+    };
     mongo?: {
         enabled: boolean;
         url: string;
