@@ -87,7 +87,7 @@ export const exportData = async (project: Project) => {
             await sendTelegramFile(
                 project.chat_id,
                 project.message_thread_id,
-                fullOutputLogsPath,
+                `${fullOutputLogsPath}.tar.gz`,
                 project.hashtag,
                 "Logs",
             );
