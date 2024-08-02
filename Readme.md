@@ -1,15 +1,41 @@
-## Auto Mongo and Logs Backup
+# Auto Mongo and Logs Backup
 
-### Small utility to back up mongo databases and logs using cron with sending dumps to Telegram. 
+## Overview
 
- - Mongo backup is using [mongodump](https://www.mongodb.com/docs/database-tools/mongodump/) utility which is included in MongoDB Database Tools.
- - Logs backup is using [tar](https://www.gnu.org/software/tar/) utility.
+This script is used to automate the process of exporting MongoDB data and logs backups to Telegram.
+
+It creates an archive with MongoDB data and logs and sends it to the Telegram chat.
+
+- Mongo backup is using [mongodump](https://www.mongodb.com/docs/database-tools/mongodump/) utility which is included in
+  MongoDB Database Tools.
+- Logs backup is using [tar](https://www.gnu.org/software/tar/) utility.
+
+It can be easily modified to send backups to other services like AWS S3, Google Cloud Storage, etc.
+
+Also, if your archived backups are more than 50MB, consider using other services since Telegram has a 50MB limit for files.
 
 All backups are stored in the `dumps` directory in the root of the project.
-Each project has its own cron schedule for exporting data.
 
+Each project has its own backup folder and cron schedule for exporting data.
 
-### Configuration
+Dumps folder example structure:
+
+```
+dumps
+├── projectExample
+│   ├── logs
+│   │   └── 2024-08-02T01:37:58.518Z.tar 
+│   └── mongo
+│       └── 2024-08-02T01:37:58.518Z
+├── projectExample2
+│   └── logs
+│       └── 2024-08-02T01:37:58.518Z.tar
+└── projectExample3
+    └── mongo
+        └── 2024-08-02T01:37:58.518Z
+```
+
+## Configuration
 
 The script is using the `.env` file to get the configuration. The `.env` file should look like this:
 
@@ -64,7 +90,24 @@ The `projects_example.json` file should look like this:
 }
 ```
 
-### Quick start
+### Annotation:
+
+- `title` - project title(used only for logs)
+- `hashtag` - project hashtag(used for creating a folder with backups and hashtag for telegram messages)
+- `chat_id` - telegram chat id
+- `message_thread_id` - telegram message thread id(optional)
+- `cron` - cron schedule for exporting data
+- `mongo` - mongo backup configuration
+    - `enabled` - enable mongo backup
+    - `url` - mongo connection string
+    - `removeAfterExport` - remove backup archive after exporting
+- `logs` - logs backup configuration
+- `enabled` - enable logs backup
+- `path` - path to logs folder
+- `lastModifiedFilesCount` - count of last modified files to back up
+- `removeAfterExport` - remove backup archive after exporting
+
+## Quick start
 
 1. `git clone https://github.com/DanyaKulko/auto-mongo-with-logs-backups.git`
 2. `npm install`
@@ -73,4 +116,5 @@ The `projects_example.json` file should look like this:
 5. `npm run build`
 6. `npm start`
 
-It also can be run using pm2: `pm2 startOrRestart ecosystem.config.js` and`pm2 startOrRestart ecosystem.config.js --env production` for production mode.
+It also can be run using pm2: `pm2 start ecosystem.config.js`
+and`pm2 start ecosystem.config.js --env production` for production mode.
