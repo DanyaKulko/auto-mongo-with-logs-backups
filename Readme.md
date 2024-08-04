@@ -25,15 +25,15 @@ Dumps folder example structure:
 dumps
 ├── projectExample
 │   ├── logs
-│   │   └── 2024-08-02T01:37:58.518Z.tar 
+│   │   └── 2024-08-02T01:37:58.518Z.tar.gz 
 │   └── mongo
-│       └── 2024-08-02T01:37:58.518Z
+│       └── 2024-08-02T01:37:58.518Z.tar.gz 
 ├── projectExample2
 │   └── logs
-│       └── 2024-08-02T01:37:58.518Z.tar
+│       └── 2024-08-02T01:37:58.518Z.tar.gz 
 └── projectExample3
     └── mongo
-        └── 2024-08-02T01:37:58.518Z
+        └── 2024-08-02T01:37:58.518Z.tar.gz 
 ```
 
 ## Configuration
